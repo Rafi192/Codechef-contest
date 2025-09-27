@@ -1,42 +1,27 @@
 #include <iostream>
-#include <vector>
+#include <string>
 using namespace std;
 
 int main() {
-
     int T;
     cin >> T;
     while (T--) {
         string s;
         cin >> s;
+        bool good = false;
 
-        // Substrings we want to check
-        vector<string> substrings = {"010", "101"};
-
-        // Loop through each substring
-        for (string sub : substrings) {
-            bool found = false; // Flag to track if substring exists
-
-            // Loop through main string s
-            for (int i = 0; i <= s.size() - sub.size(); i++) {
-                int j = 0;
-                // Check character by character
-                while (j < sub.size() && s[i + j] == sub[j]) {
-                    j++;
-                }
-                if (j == sub.size()) {
-                    found = true; // Full substring matched
-                    break;
-                }
+        for (int i = 0; i + 2 < s.size(); i++) { // +2 because substring length is 3
+            if ((s[i] == '0' && s[i+1] == '1' && s[i+2] == '0') ||
+                (s[i] == '1' && s[i+1] == '0' && s[i+2] == '1')) {
+                good = true;
+                break;
             }
-
-            // Print result
-            if (found)
-                cout << "Substring \"" << sub << "\" exists in the string." << endl;
-            else
-                cout << "Substring \"" << sub << "\" does NOT exist in the string." << endl;
         }
-    }
 
+        if (good)
+            cout << "Good\n";
+        else
+            cout << "Bad\n";
+    }
     return 0;
 }
